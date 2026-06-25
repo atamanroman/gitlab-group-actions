@@ -21,7 +21,7 @@
 
 (deftest keep-included-test
   (let [cut #'gitlab-group-actions.projects/keep-included]
-    (testing "nil or empty includes keeps everything (no whitelist active)"
+    (testing "nil or empty includes keeps everything (filter inactive)"
       (is (= 1 (count (cut [{:id 1 :path_with_namespace "foo"}] nil))))
       (is (= 1 (count (cut [{:id 1 :path_with_namespace "foo"}] [])))))
     (testing "regex match keeps project"

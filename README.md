@@ -29,7 +29,7 @@ $ lein run -- create-tag 1.0.0 "release" https://gitlab.com/api/v4 186 $TOKEN --
 
 Two filters are available and can be combined:
 
-- `--excludes-file=<file>` (blacklist): skip projects whose path matches any regex in the file.
-- `--includes-file=<file>` (whitelist): keep only projects whose path matches at least one regex in the file. When omitted, all projects are kept.
+- `--excludes-file=<file>`: skip projects whose path matches any regex in the file.
+- `--includes-file=<file>`: keep only projects whose path matches at least one regex in the file. When omitted, all projects are kept.
 
 Each file holds one regex per line. Regexes match the full project path (e.g. `my-team/my-service`). Includes run before excludes, so a project listed in both is excluded.
