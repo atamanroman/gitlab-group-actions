@@ -13,3 +13,5 @@ pom.xml.asc
 .idea/
 *.iml
 excludes.txt
+.api-token
+
