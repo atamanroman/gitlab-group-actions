@@ -17,8 +17,18 @@
                                                                true))
                                                           projects))
 
+(defn- matches-includes [project include-regexes] (seq (filter (fn [re] (if (re-matches re (:path_with_namespace project)) re)) include-regexes)))
+(defn- keep-included [projects include-regexes] (if (empty? include-regexes)
+                                                  projects
+                                                  (filter #(let [matches (matches-includes % include-regexes)]
+                                                             (if matches
+                                                               true
+                                                               (do (println "Not included:" (:path_with_namespace %))
+                                                                   false)))
+                                                          projects)))
+
 (defn get-projects
-  ([{:keys [:access-token :api-url :group-id :recursive :excludes]} page]
+  ([{:keys [:access-token :api-url :group-id :recursive :excludes :includes]} page]
    (let [resp (api/get
                access-token
                "%s/groups/%d/projects?include_subgroups=%b&simple=true&archived=false&per_page=100&page=%d"
@@ -27,7 +37,7 @@
          total_pages (Integer/parseInt (:x-total-pages (:headers resp)))]
      (if (> total_pages page) (throw (new IllegalStateException "OMG THERE ARE MORE PAGEZZZ"))) ; TODO
      (log-projects body)
-     (remove-excluded body excludes)))
+     (-> body (keep-included includes) (remove-excluded excludes))))
   ([gitlab-options] (get-projects gitlab-options 1)))
 
 (defn get-target-branch [project cli-branch]

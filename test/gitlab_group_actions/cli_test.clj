@@ -61,7 +61,17 @@
     (let [args (parse-args ["start-pipeline" "a" "123" "c" "--excludes-file=test/test_excludes.txt"])]
       (is (= 2 (count (:excludes args))))
       (is (= "foo" (.pattern (nth (:excludes args) 0))))
-      (is (= "bar" (.pattern (nth (:excludes args) 1)))))))
+      (is (= "bar" (.pattern (nth (:excludes args) 1))))))
+
+  (testing "includes-file is read"
+    (let [args (parse-args ["start-pipeline" "a" "123" "c" "--includes-file=test/test_includes.txt"])]
+      (is (= 2 (count (:includes args))))
+      (is (= "keep/.*" (.pattern (nth (:includes args) 0))))
+      (is (= "also/.*" (.pattern (nth (:includes args) 1))))))
+
+  (testing "without includes-file :includes is nil"
+    (let [args (parse-args ["start-pipeline" "a" "123" "c"])]
+      (is (nil? (:includes args))))))
 
 (deftest create-tag
   (testing "create-tag"
