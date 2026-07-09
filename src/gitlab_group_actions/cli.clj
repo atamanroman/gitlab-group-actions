@@ -14,14 +14,15 @@
                             :exit-status  (arg-map "exit-status")
                             :group-id     (if (arg-map "<group-id>") (Integer/parseInt (arg-map "<group-id>")))
                             :recursive    (or (arg-map "--recursive") false)
+                            :topic        (arg-map "<topic>")
                             :tag-name     (arg-map "<name>")
                             :tag-message  (arg-map "<message>")})
 
 (defn #^{:doc     "Gitlab Group Actions.
 
 Usage:
-  gl_ga start-pipeline <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
-  gl_ga create-tag <name> <message> <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
+  gl_ga start-pipeline <api-url> <group-id> <topic> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
+  gl_ga create-tag <name> <message> <api-url> <group-id> <topic> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
   gl_ga -h | --help
   gl_ga -v | --version
 

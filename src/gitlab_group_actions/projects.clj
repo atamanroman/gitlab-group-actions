@@ -28,11 +28,11 @@
                                                           projects)))
 
 (defn get-projects
-  ([{:keys [:access-token :api-url :group-id :recursive :excludes :includes]} page]
+  ([{:keys [:access-token :api-url :group-id :recursive :topic :excludes :includes]} page]
    (let [resp (api/get
                access-token
-               "%s/groups/%d/projects?include_subgroups=%b&simple=true&archived=false&per_page=100&page=%d"
-               [api-url group-id recursive page])
+               "%s/groups/%d/projects?include_subgroups=%b&topic=%s&simple=true&archived=false&per_page=100&page=%d"
+               [api-url group-id recursive topic page])
          body (:body resp)
          total_pages (Integer/parseInt (:x-total-pages (:headers resp)))]
      (if (> total_pages page) (throw (new IllegalStateException "OMG THERE ARE MORE PAGEZZZ"))) ; TODO
