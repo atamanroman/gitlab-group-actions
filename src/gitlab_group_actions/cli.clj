@@ -37,7 +37,7 @@ Options:
                                       Includes are applied against the whole project path (e.g. 'my-team/my-service')
                                       and need to match fully. When omitted, all projects are kept.
                                       Includes run before excludes.
-  -t=<topic>, --topic=<topic>         Filter projects by topic.
+  -t=<topic>, --topic=<topic>         Filter projects by topic/topics. Accepts a comma-separated list. 
   -n, --dry-run                       Don't issue any mutating actions and just log them.
   -h, --help                          Show this screen.
   -v, --version                       Show version."

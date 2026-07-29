@@ -29,7 +29,7 @@ $ lein run -- create-tag 1.0.0 "release" https://gitlab.com/api/v4 186 $TOKEN --
 
 Three filters are available and can be combined:
 
-- `--topic=<topic>`: only act on projects tagged with the given GitLab topic.
+- `--topic=<topic>`: only act on projects tagged with the given GitLab topic. Accepts list of values separated by commas.
 - `--excludes-file=<file>`: skip projects whose path matches any regex in the file.
 - `--includes-file=<file>`: keep only projects whose path matches at least one regex in the file. When omitted, all projects are kept.
 
