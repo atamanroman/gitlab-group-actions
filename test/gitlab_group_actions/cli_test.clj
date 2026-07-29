@@ -71,7 +71,19 @@
 
   (testing "without includes-file :includes is nil"
     (let [args (parse-args ["start-pipeline" "a" "123" "c"])]
-      (is (nil? (:includes args))))))
+      (is (nil? (:includes args)))))
+
+  (testing "topic is set when --topic is provided"
+    (let [args (parse-args ["start-pipeline" "a" "123" "c" "--topic=releasable"])]
+      (is (= "releasable" (:topic args)))))
+
+  (testing "topic is nil when --topic is omitted"
+    (let [args (parse-args ["start-pipeline" "a" "123" "c"])]
+      (is (nil? (:topic args)))))
+  
+  (testing "short -t=foo strips the leading equals sign"
+    (let [args (parse-args ["start-pipeline" "a" "123" "c" "-t=releasable"])]
+      (is (= "releasable" (:topic args))))))
 
 (deftest create-tag
   (testing "create-tag"
