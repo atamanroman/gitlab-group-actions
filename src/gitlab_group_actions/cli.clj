@@ -14,14 +14,15 @@
                             :exit-status  (arg-map "exit-status")
                             :group-id     (if (arg-map "<group-id>") (Integer/parseInt (arg-map "<group-id>")))
                             :recursive    (or (arg-map "--recursive") false)
+                            :topic        (when-let [t (arg-map "--topic")] (.replaceFirst t "^=" ""))
                             :tag-name     (arg-map "<name>")
                             :tag-message  (arg-map "<message>")})
 
 (defn #^{:doc     "Gitlab Group Actions.
 
 Usage:
-  gl_ga start-pipeline <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
-  gl_ga create-tag <name> <message> <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file>]
+  gl_ga start-pipeline <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file> -t=<topic>]
+  gl_ga create-tag <name> <message> <api-url> <group-id> <access-token> [-r -n -b=<branch> -x=<excludes_file> -i=<includes_file> -t=<topic>]
   gl_ga -h | --help
   gl_ga -v | --version
 
@@ -36,6 +37,7 @@ Options:
                                       Includes are applied against the whole project path (e.g. 'my-team/my-service')
                                       and need to match fully. When omitted, all projects are kept.
                                       Includes run before excludes.
+  -t=<topic>, --topic=<topic>         Filter projects by topic/topics. Accepts a comma-separated list. 
   -n, --dry-run                       Don't issue any mutating actions and just log them.
   -h, --help                          Show this screen.
   -v, --version                       Show version."
